@@ -1,0 +1,160 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
+class HelloWorld {
+    static void Main() 
+    {
+        SortedSet<string> sortSet = new SortedSet<string>() {
+            "www", "0" , "$", "#" , "&", "3.14" , "*", "@" ,
+            "1", "^" , "abc", "2.7" , "%", "Aa" , "", "-" 
+        };
+        
+        while (true)
+        {
+            menu();
+            
+            int number = Convert.ToInt32(Console.ReadLine());
+            Console.Clear();
+
+            switch (number) 
+            {
+
+                case 1:
+                    func("Исходный  ", sortSet);
+                    sortSet.Add(Console.ReadLine());
+                    func("Новый ", sortSet);
+                    break;
+
+                case 2:
+                    func("Исходный ", sortSet);
+                    sortSet.Clear();
+                    func("Новый ", sortSet);
+                    break;
+
+                case 3: 
+                    func("", sortSet);
+                    Console.WriteLine(sortSet.Contains(Console.ReadLine()));
+                    break;
+
+                case 4:
+                    func("", sortSet);
+                    Array copy = new string[sortSet.Count];
+                    sortSet.CopyTo((string[])copy);
+                    
+                    Console.WriteLine("Array:");
+                    foreach (string i in copy)
+                        Console.Write(i + " ");
+                    break;
+
+                case 5:
+                    func("Исходный ", sortSet);
+                    SortedSet<string> symmmetric = new SortedSet<string>() { "www", "0" , "$", "#" , "&", "3.14" , "*", "@" };
+                    func("Симметричный ", symmmetric);
+                    sortSet.SymmetricExceptWith(symmmetric);
+                    func("Новый ", sortSet);
+                    break;
+
+                case 6:
+                    func("Исходный ", sortSet);
+                    sortSet.Remove(Console.ReadLine());
+                    func("Новый ", sortSet);
+                    break;
+
+                case 7:
+                    func("Исходный ", sortSet);
+                    SortedSet<string> inters = new SortedSet<string>() 
+                    {
+                        "www", "0" , "$", "#" , "&", "*", "@" , "^" , "abc", "%"
+                    };
+                    func("Пересечённый ", inters);
+                    sortSet.IntersectWith(inters);
+                    func("Новый ", sortSet);
+                    break;
+
+                case 8:
+                    Console.WriteLine(sortSet.Count);
+                    break;
+
+                case 9:
+                    Console.WriteLine(sortSet.GetType()); 
+                    break;
+
+                case 10:
+                    func("1. ", sortSet);
+                    SortedSet<string> some_another = new SortedSet<string>() 
+                    {
+                        "www", "0" , "$", "#" , "&", "3.14" , "*", "@" ,
+                        "3", "^" , "abc", "2.7" , "%", "Aa"
+                    };
+                    func("2. ", some_another);
+                    Console.WriteLine(sortSet.Equals(some_another));
+                    break;
+
+                case 11:
+                    func("1. ", sortSet);
+                    SortedSet<string> some_another2 = new SortedSet<string>() 
+                    {
+                        "www", "0" , "$", "#" , "&", "3.14" , "*", "@" ,
+                        "1", "^" , "abc", "2.7" , "%", "Aa" , "", "-"
+                    };
+                    func("2. ", some_another2);
+                    Console.WriteLine(sortSet.IsSubsetOf(some_another2));
+                    break;
+
+                case 12:
+                    func("Old ", sortSet);
+                    SortedSet<string> uni = new SortedSet<string>() 
+                    {
+                        "www", "0" , "$", "#" , "&", "3.14" , "*", "@" ,
+                        "1", "^" , "abc", "2.7" , "%", "Aa" , "", "-", "here"
+                    };
+                    func("Uni", uni);
+                    sortSet.UnionWith(uni);
+                    func("New", sortSet);
+                    break;
+
+                case 13:
+                    func("", sortSet);
+                    SortedSet<string> some_another3 = new SortedSet<string>() { "fff" };
+                    func("Overlaps ", some_another3);
+                    Console.WriteLine(sortSet.Overlaps(some_another3));
+                    break;
+
+                case 14:
+                    func("Исходный ", sortSet);
+                    var rev = sortSet.Reverse();
+                    Console.WriteLine($"Reverse SortedSet: \n{String.Join(", ", rev)}");
+                    break;
+
+                case 0: Environment.Exit(0); break;
+            }
+            Console.ReadKey();
+            Console.Clear();
+        }
+    }
+    
+    static void menu() 
+    {
+        Console.WriteLine("1. Add");
+        Console.WriteLine("2. Clear");
+        Console.WriteLine("3. Contains");
+        Console.WriteLine("4. CopyTo");
+        Console.WriteLine("5. SymmetricExceptWith");
+        Console.WriteLine("6. Remove");
+        Console.WriteLine("7. IntersectWith");
+        Console.WriteLine("8. Count");
+        Console.WriteLine("9. GetType");
+        Console.WriteLine("10. Equals");
+        Console.WriteLine("11. IsSubsetOf");
+        Console.WriteLine("12. UnionWith");
+        Console.WriteLine("13. Overlaps");
+        Console.WriteLine("14. Reverse");
+        Console.WriteLine("0. Exit");
+    }
+    
+    static void func(string name, SortedSet<string> sortSet) 
+    {
+        Console.WriteLine(name + "SortedSet: \n" + String.Join(", ", sortSet));
+    }
+}
