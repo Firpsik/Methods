@@ -1,0 +1,139 @@
+using System.Collections;
+using System.ComponentModel;
+
+while (true)
+{
+    menu();
+    int variation = int.Parse(Console.ReadLine());   // SortedList
+
+    var SL = new SortedList();
+    SL.Add("Third", "!");
+    SL.Add("Second", "World");
+    SL.Add("First", "Hello");
+
+    Console.Clear();
+
+    switch (variation)
+    {
+        case 1:
+            {
+                Console.WriteLine("Пустой список: ");
+                perebor(SL);
+                SL.Add("Thus", "It's");
+                SL.Add("Trus", "Me");
+                Console.WriteLine("Обновлённый список: ");
+                perebor(SL);
+            }
+            break;
+
+        case 2:
+            {
+                Console.WriteLine("Исходный список: ");
+                perebor(SL);
+                SL.Remove("Second");
+                perebor(SL);
+            }
+            break;
+
+        case 3:
+            {
+                Console.WriteLine(SL.GetType());
+            }
+            break;
+
+        case 4:
+            {
+                string s = "Hello";
+                Console.WriteLine("Список: ");
+                perebor(SL);
+                Console.WriteLine("Содержит ли слово " + s + "?");
+                if (SL.ContainsValue(s))
+                    Console.WriteLine("Содержит " + s + "!");
+                else
+                    Console.WriteLine("Не содержит " + s + "!");
+
+            }
+            break;
+
+        case 5:
+            {
+                Console.WriteLine("Список: ");
+                perebor(SL);
+                var arr = new DictionaryEntry[10];
+                SL.CopyTo(arr, 1);
+                Console.Write("Массив:");
+                for (int i = 0; i < arr.Length; i++)
+                    Console.Write(arr[i].Value  + " ");
+                Console.WriteLine();
+            }
+            break;
+
+        case 6:
+            {
+                Console.WriteLine("Список: ");
+                perebor(SL);
+                Console.Write("Получим слово по индексу 0: ");
+                Console.Write(SL.GetByIndex(0));
+                Console.WriteLine();
+            }
+            break;
+
+        case 7:
+            {
+                Console.WriteLine("Список: ");
+                perebor(SL);
+                Console.WriteLine("Результат: ");
+                IDictionaryEnumerator myEnumerator = SL.GetEnumerator();
+                while (myEnumerator.MoveNext())
+                    Console.WriteLine("\t" + myEnumerator.Key + " : " + myEnumerator.Value);
+            }
+            break;
+
+        case 8:
+            {
+                string s = "!";
+                Console.WriteLine("Список: ");
+                perebor(SL);
+                Console.WriteLine($"Элемент {s} имеет {SL.IndexOfValue(s)} индекс");
+            }
+            break;
+
+        case 9:
+            {
+                string s = "Something";
+                int n = 1;
+                Console.WriteLine("Список: ");
+                perebor(SL);
+                SL.SetByIndex(n, s);
+                Console.WriteLine($"Заменим {n + 1} элемент на слово {s}");
+                Console.WriteLine("Результат: ");
+                perebor(SL);
+            }
+            break;
+
+        case 0: Environment.Exit(0); break;
+    }
+}
+
+static void menu()
+{
+    Console.WriteLine("1. Add");
+    Console.WriteLine("2. Remove");
+    Console.WriteLine("3. GetType");
+    Console.WriteLine("4. ContainsValue");
+    Console.WriteLine("5. CopyTo");
+    Console.WriteLine("6. GetByIndex");
+    Console.WriteLine("7. GetEnumerator");
+    Console.WriteLine("8. IndexOfValue");
+    Console.WriteLine("9. SetByIndex");
+    Console.WriteLine("0. Exit");
+}
+
+static void perebor(SortedList SL)
+{
+    for (int i = 0; i < SL.Count; i++)
+    {
+        Console.WriteLine($"\t{SL.GetKey(i)}:\t{SL.GetByIndex(i)}");
+    }
+    Console.WriteLine();
+}
