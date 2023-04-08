@@ -1,0 +1,155 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        var arr = new ArrayList() { "Some", "words", "here" };
+        string text;
+        int k = 0;
+
+        while (true)
+        {
+            if (k != 0)
+            {
+                Console.ReadKey();
+                Console.Clear();
+            }
+            k = 1;
+            menu();
+            int variation = int.Parse(Console.ReadLine());
+            switch (variation)
+            {
+                case 1:
+                    {
+                        Console.WriteLine("Исходный Arraylist");
+                        perebor(arr);
+                        Console.WriteLine("\nКакое слово добавим?");
+                        text = Console.ReadLine();
+                        arr.Add(text);
+                        Console.Clear();
+                        Console.WriteLine("Получившийся Arraylist");
+                        perebor(arr);
+                    }
+                    break;
+
+                case 2:
+                    {
+                        Console.WriteLine("Исходный Arraylist");
+                        perebor(arr);
+                        Console.WriteLine("\n\"Перевёрнутый\" Arraylist");
+                        arr.Reverse();
+                        perebor(arr);
+                    }
+                    break;
+
+                case 3:
+                    {
+                        Console.WriteLine("Arraylist: ");
+                        perebor(arr);
+                        var arr2 = new string[arr.Count];
+                        arr.CopyTo(arr2);
+                        Console.WriteLine("\nПолученный массив из Arraylist: ");
+                        foreach (string word in arr2)
+                            Console.WriteLine(word);
+                    }
+                    break;
+
+                case 4:
+                    {
+                        Console.WriteLine("Arraylist: ");
+                        perebor(arr);
+                        text = "Конь";
+                        Console.WriteLine("\nСодержит ли слово \"" + text + "\"?");
+                        if (arr.Contains(text))
+                            Console.WriteLine("Да");
+                        else
+                            Console.WriteLine("Нет");
+                    }
+                    break;
+
+                case 5:
+                    {
+                        Console.WriteLine("Исходный Arraylist: ");
+                        perebor(arr);
+                        Console.WriteLine("\nПустой Arraylist: ");
+                        arr.Clear();
+                        perebor(arr);
+                    }
+                    break;
+
+                case 6:
+                    {
+                        Console.WriteLine("Исходный Arraylist: ");
+                        perebor(arr);
+                        Console.WriteLine("\nКакое слово уберём? ");
+                        text = Console.ReadLine();
+                        Console.WriteLine("\nДавайте уберём слово " + text + " !");
+                        arr.Remove(text);
+                        Console.ReadKey();
+                        Console.Clear();
+                        Console.WriteLine("Получившийся Arraylist");
+                        perebor(arr);
+                    }
+                    break;
+
+                case 7:
+                    {
+                        Console.WriteLine("Arraylist: ");
+                        perebor(arr);
+                        Console.WriteLine("\nИндекс какого элемента найдём?");
+                        text = Console.ReadLine();
+                        Console.Write(text + " имеет " + arr.IndexOf(text) + " индекс");
+                    }
+                    break;
+
+                case 8:
+                    {
+                        Console.WriteLine("Исходный Arraylist: ");
+                        perebor(arr);
+                        arr.Sort();
+                        Console.WriteLine("\nСортированный Arraylist: ");
+                        perebor(arr);
+                    }
+                    break;
+
+                case 9:
+                    {
+                        Console.WriteLine("Arraylist: ");
+                        perebor(arr);
+                        Console.WriteLine("\nВведите границы переноса: ");
+                        var arr2 = new int[2];
+                        arr2 = Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
+                        var arr3 = arr.GetRange(arr2[0], arr2[1]);
+                        perebor(arr3);
+                    }
+                    break;
+
+                case 0: Environment.Exit(0); break;
+            }
+        }
+    }
+
+    static void menu()
+    {
+        Console.WriteLine(@"1. Add
+2.Reverse
+3.CopyTo
+4.Contains
+5.Clear
+6.Remove
+7.IndexOf
+8.Sort
+9.GetRange
+0.Exit"
+            );
+    }
+
+    static void perebor(ArrayList arr)
+    {
+        foreach (string word in arr)
+            Console.WriteLine(word);
+    }
+}
