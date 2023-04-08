@@ -1,0 +1,152 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
+class HelloWorld 
+{
+    static void Main()
+    {
+        Dictionary<string, string> Dict = new Dictionary<string, string>() 
+        {
+            {"so", "here" }, {"$", "was" }, {"*", "something" }, {"interesting", "@" },
+            {"1", "but" }, {"now", "3.3" }, {"here", "Is" }, {"empty", "-" }
+        };
+        Console.Clear();
+        
+        while (true)
+        {
+            menu();
+            
+            int number = int.Parse(Console.ReadLine());
+            Console.Clear();
+
+            switch (number) 
+            {
+                case 1:
+                    func("Исходный: ", Dict);
+                    Console.Write("key=");
+                    string add = Console.ReadLine();
+                    Console.Write("value=");
+                    Dict.Add(add, Console.ReadLine());
+                    func("Новый: ", Dict);
+                    break;
+
+                case 2:
+                    func("Исходный: ", Dict);
+                    Dict.Clear();
+                    func("Новый: ", Dict);
+                    break;
+
+                case 3:
+                    func("", Dict);
+                    Console.WriteLine(Dict.ContainsKey(Console.ReadLine()));
+                    break;
+
+                case 4:
+                    func("", Dict);
+                    Console.WriteLine(Dict.ContainsValue(Console.ReadLine()));
+                    break;
+
+                case 5:
+                    func("Словарь: ", Dict);
+                    Array copy = new string[Dict.Count];
+                    Console.Write("Ключ или значение (1/2): ");
+                    
+                    string kov = Console.ReadLine();
+                    
+                    if (kov == "1") 
+                        Dict.Keys.CopyTo((string[])copy, 0);
+                    else 
+                        Dict.Values.CopyTo((string[])copy, 0);
+
+                    foreach (string i in copy)
+                        Console.Write(i + " ");
+                    break;
+                    
+                case 6:
+                    func("Исходный: ", Dict);
+                    Dict.Remove(Console.ReadLine());
+                    func("Новый: ", Dict);
+                    break;
+
+                case 7:
+                    func("Исходный: ", Dict);
+                    
+                    Console.Write("key=");
+                    string key = Console.ReadLine();
+                    Console.Write("value=");
+                    string value = Console.ReadLine();
+                    
+                    Console.WriteLine(Dict.TryAdd(key, value));
+                    func("Новый: ", Dict);
+                    break;
+
+                case 8:
+                    Console.WriteLine(Dict.Count);
+                    break;
+
+                case 9:
+                    func("1 ", Dict);
+                    Dictionary<string, string> equ = new Dictionary<string, string>() {
+                        {"www", "0" }, {"$", "#" }, {"&", "3.14" }, {"*", "@" },
+                        {"1", "^" }, {"abc", "2.7" }, {"%", "Aa" }, {"", "-" }
+                    };
+                    func("2 ", equ);
+                    Console.WriteLine(Dict.Equals(equ));
+                    break;
+
+                case 10:
+                    func("", Dict);
+                    func_only_keys("Keys", Dict.Keys);
+                    break;
+
+                case 11:
+                    func("", Dict);
+                    func_only_values("Values", Dict.Values);
+                    break;
+
+                case 0: Environment.Exit(0); break;
+            }
+            
+            Console.ReadLine();
+            Console.Clear();
+        }
+    }
+
+    static void menu()
+    {
+        Console.WriteLine("1.Add");
+        Console.WriteLine("2.Clear");
+        Console.WriteLine("3.ContainsKey");
+        Console.WriteLine("4.ContainsValue");
+        Console.WriteLine("5.CopyTo");
+        Console.WriteLine("6.Remove");
+        Console.WriteLine("7.TryAdd");
+        Console.WriteLine("8.Count");
+        Console.WriteLine("9.Equals");
+        Console.WriteLine("10.Keys");
+        Console.WriteLine("11.Values");
+        Console.WriteLine("0.Exit");
+    }
+    
+    static void func(string name, Dictionary<string, string> dict) 
+    {
+        Console.WriteLine(name + "SortedList: ");
+        
+        foreach (KeyValuePair<string,string> some in dict) 
+        {
+            Console.WriteLine(some.Key + "=" + some.Value);
+        }
+        Console.WriteLine();
+    }
+    
+    static void func_only_values(string what, Dictionary<string,string>.ValueCollection dict) 
+    {
+        Console.WriteLine(what + ": \n" + String.Join(", ", dict));
+    }
+    
+    static void func_only_keys(string what, Dictionary<string,string>.KeyCollection dict) 
+    {
+        Console.WriteLine(what + ": \n" + String.Join(", ", dict));
+    }
+}
