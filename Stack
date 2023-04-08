@@ -1,0 +1,125 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
+class HelloWorld 
+{
+    static void Main() 
+    {
+        List<string> list = new List<string>() { "www", "0", "$", "#", "&", "3.14", "*", "@", "1", "^", "abc", "2.7", "%", "Aa", "", "-" };
+        Stack<string> stack = new Stack<string>(list);
+
+        while (true)
+        {
+            menu();
+            
+            int number = int.Parse(Console.ReadLine());
+            Console.Clear();
+
+            string res = "";
+            switch (number) 
+            {
+
+                case 1:
+                    func("Исходный ", stack);
+                    stack.Clear();
+                    func("Новый ", stack);
+                    break;
+
+                case 2:
+                    func("", stack);
+                    Console.WriteLine(stack.Contains(Console.ReadLine()));
+                    break;
+
+                case 3:
+                    func("", stack);
+                    string[] copy = new string[stack.Count];
+                    stack.CopyTo(copy, 0);
+                    Console.WriteLine("Array: ");
+                    foreach (string i in copy)
+                        Console.Write(i + " ");
+                    break;
+
+                case 4:
+                    Console.WriteLine(stack.Count);
+                    break;
+
+                case 5:
+                    func("1 ", stack);
+                    Stack<string> eqs = new Stack<string>(list);
+                    func("2 ", eqs);
+                    Console.WriteLine(stack.Equals(eqs));
+                    break;
+
+                case 6:
+                    Console.WriteLine(stack.GetType());
+                    break;
+
+                case 7:
+                    func("Исходный ", stack);
+                    Console.WriteLine(stack.Peek());
+                    func("Новый ", stack);
+                    break;
+
+                case 8:
+                    func("Исходный ", stack);
+                    Console.WriteLine(stack.Pop() + "\n");
+                    func("Новый ", stack);
+                    break;
+
+                case 9: 
+                    func("Исходный ", stack);
+                    stack.Push(Console.ReadLine());
+                    func("Новый ", stack);
+                    break;
+
+                case 10: 
+                    func("Stack ", stack);
+                    Console.WriteLine("Array: ");
+                    foreach (string i in stack.ToArray())
+                        Console.Write(i + " ");
+                    break;
+
+                case 11:  
+                    func("Исходный ", stack);
+                    stack.TryPeek(out res);
+                    Console.WriteLine("Peek: " + res);
+                    func("Новый ", stack);
+                    break;
+
+                case 12:
+                    func("Исходный ", stack);
+                    stack.TryPop(out res);
+                    Console.WriteLine("Pop: " + res);
+                    func("Новый ", stack);
+                    break;
+
+                case 0: Environment.Exit(0); break;
+            }
+            
+            Console.ReadLine();
+            Console.Clear();
+        }
+    }
+    static void menu() 
+    {
+        Console.WriteLine("1.Clear");
+        Console.WriteLine("2.Contains");
+        Console.WriteLine("3.CopyTo");
+        Console.WriteLine("4.Count");
+        Console.WriteLine("5.Equals");
+        Console.WriteLine("6.GetType");
+        Console.WriteLine("7.Peek");
+        Console.WriteLine("8.Pop");
+        Console.WriteLine("9.Push");
+        Console.WriteLine("10.ToArray");
+        Console.WriteLine("11.TryPeek");
+        Console.WriteLine("12.TryPop");
+        Console.WriteLine("0.Exit");
+    }
+    
+    static void func(string age, Stack<string> stack) 
+    {
+        Console.WriteLine(age + "Stack: \n" + String.Join(", ", stack));
+    }
+}
