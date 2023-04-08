@@ -1,0 +1,156 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        var list = new List<string>() {"There", "are", "some", "words", "!"};
+        string text;
+        int k = 0;
+        
+        while (true)
+        {
+            if (k != 0)
+            {
+                Console.ReadKey();
+                Console.Clear();
+            }
+            k = 1;
+            menu();
+            int variation = int.Parse(Console.ReadLine());
+            switch (variation)
+            {
+                case 1: 
+                {
+                    Console.WriteLine("Исходный список");
+                    perebor(list);
+                    Console.WriteLine("\nКакое слово добавим?");
+                    text = Console.ReadLine();
+                    list.Add(text);
+                    Console.Clear();
+                    Console.WriteLine("Получившийся список");
+                    perebor(list);
+                }
+                break;
+                
+                case 2:
+                {
+                    Console.WriteLine("Исходный список");
+                    perebor(list);
+                    Console.WriteLine("\n\"Перевёрнутый\" список");
+                    list.Reverse();
+                    perebor(list);
+                }
+                break;
+                
+                case 3:
+                {
+                    Console.WriteLine("Cписок: ");
+                    perebor(list);
+                    var arr = new string[list.Count];
+                    list.CopyTo(arr);
+                    Console.Write("\nПолучившийся массив: ");
+                    foreach (string word in arr)
+                        Console.Write(word + " ");
+                }
+                break;
+                
+                case 4:
+                {
+                    Console.WriteLine("Список: ");
+                    perebor(list);
+                    text = "Конь";
+                    Console.WriteLine("\nСодержит ли слово \"" + text + "\"?");
+                    if (list.Contains(text))
+                        Console.WriteLine("Да");
+                    else
+                        Console.WriteLine("Нет");
+                }
+                break;
+                
+                case 5: 
+                {
+                    Console.WriteLine("Исходный cписок: ");
+                    perebor(list);
+                    Console.WriteLine("\nПустой cписок: ");
+                    list.Clear();
+                    perebor(list);
+                }
+                break;
+                
+                case 6:
+                {
+                    Console.WriteLine("Исходный cписок: ");
+                    perebor(list);
+                    Console.WriteLine("\nКакое слово уберём? ");
+                    text = Console.ReadLine();
+                    Console.WriteLine("\nДавайте уберём слово " + text + " !");
+                    list.Remove(text);
+                    Console.ReadKey();
+                    Console.Clear();
+                    Console.WriteLine("Получившийся список");
+                    perebor(list);
+                }
+                break;
+                
+                case 7:
+                {
+                    Console.WriteLine("Cписок: ");
+                    perebor(list);
+                    Console.WriteLine("\nИндекс какого элемента найдём?");
+                    text = Console.ReadLine();
+                    Console.Write(text + " имеет " + list.IndexOf(text) + " индекс");
+                }
+                break;
+                
+                case 8:
+                {
+                    Console.WriteLine("Исходный cписок: ");
+                    perebor(list);
+                    list.Sort();
+                    Console.WriteLine("\nСортированный cписок: ");
+                    perebor(list);
+                }
+                break;
+                
+                case 9:
+                {
+                    Console.WriteLine("Cписок: ");
+                    perebor(list);
+                    Console.WriteLine("\nВведите границы переноса: ");
+                    var arr = new int[2];
+                    arr = Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
+                    List<string> list2 = list.GetRange(arr[0], arr[1]);
+                    perebor(list2);
+                }
+                break;
+                
+                case 0: Environment.Exit(0); break;
+            }
+        }
+    }
+
+    static void menu()
+    {
+        Console.WriteLine(@"
+    1. Add
+    2.Reverse
+    3.CopyTo
+    4.Contains
+    5.Clear
+    6.Remove
+    7.IndexOf
+    8.Sort
+    9.BinarySearch
+    0.Exit"
+            );
+    }
+    
+    static void perebor(List<string> list)
+    {
+        foreach(string word in list)
+            Console.WriteLine(word);
+    }
+}
